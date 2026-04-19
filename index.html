@@ -563,8 +563,11 @@
   <!-- Progress -->
   <div class="progress-bar-wrap">
     <div class="progress-stats">
-      <span id="progressLabel">Calculando…</span>
-      <span id="progressPct">0%</span>
+      <span id="progressLabel">Cargando lista…</span>
+      <span>
+        <span id="connStatus" style="font-size:11px;margin-right:10px;">⚪ Conectando…</span>
+        <span id="progressPct">0%</span>
+      </span>
     </div>
     <div class="progress-bar-bg">
       <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
@@ -575,14 +578,36 @@
   <div class="items-grid" id="itemsGrid"></div>
 
   <footer class="footer">
-    <p>Hecho con 💕 para Amalia · El estado se guarda en tu navegador</p>
+    <p>Hecho con 💕 para Amalia · Sincronizado en tiempo real para todos</p>
   </footer>
 </div>
 
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 
+<!-- Firebase SDKs (compat mode, no bundler needed) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
 <script>
+// ============================================================
+// FIREBASE CONFIG
+// ============================================================
+const firebaseConfig = {
+  apiKey: "AIzaSyAcSUo473okD8TRtR-7YD_mCL7hJ--zltI",
+  authDomain: "listproducts-41b70.firebaseapp.com",
+  databaseURL: "https://listproducts-41b70-default-rtdb.firebaseio.com",
+  projectId: "listproducts-41b70",
+  storageBucket: "listproducts-41b70.firebasestorage.app",
+  messagingSenderId: "804202769829",
+  appId: "1:804202769829:web:9f01be9c78437c2c698c4c"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const wishlistRef = db.ref('wishlist');
+const connectedRef = db.ref('.info/connected');
+
 // ============================================================
 // LISTA DE PRODUCTOS — edita aquí para actualizar la wishlist
 // ============================================================
@@ -636,27 +661,51 @@ const WISHLIST = [
 ];
 
 // ============================================================
-// STATE — persiste en localStorage
+// STATE — sincronizado en tiempo real vía Firebase
 // ============================================================
-const STORAGE_KEY = 'amalia_wishlist_v1';
+// Estructura en Firebase:
+//   /wishlist/{itemId} = ["Nombre1", "Nombre2", ...]
+// Solo se guardan items con selecciones; un item ausente = vacío.
 
-function loadState() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw);
-  } catch(e) {}
-  // init vacío
-  const s = {};
-  WISHLIST.forEach(item => { s[item.id] = []; });
-  return s;
-}
+let state = {};
+WISHLIST.forEach(item => { state[item.id] = []; });
 
-function saveState(state) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-}
-
-let state = loadState();
 let myName = '';
+let isConnected = false;
+let initialLoad = true;
+
+// Listener en tiempo real: cuando alguien (yo u otro) cambia algo,
+// esta función se dispara y re-renderiza.
+wishlistRef.on('value', snapshot => {
+  const data = snapshot.val() || {};
+  // Reconstruir state respetando el orden de WISHLIST
+  WISHLIST.forEach(item => {
+    state[item.id] = Array.isArray(data[item.id]) ? data[item.id] : [];
+  });
+  render();
+  initialLoad = false;
+}, err => {
+  console.error('Firebase read error:', err);
+  showToast('⚠️ Error al cargar la lista');
+});
+
+// Indicador de conexión
+connectedRef.on('value', snap => {
+  isConnected = snap.val() === true;
+  updateConnectionBadge();
+});
+
+function updateConnectionBadge() {
+  const el = document.getElementById('connStatus');
+  if (!el) return;
+  if (isConnected) {
+    el.textContent = '🟢 Sincronizado';
+    el.style.color = 'var(--available-text)';
+  } else {
+    el.textContent = '🔴 Sin conexión';
+    el.style.color = '#B87A5A';
+  }
+}
 
 // ============================================================
 // RENDER
@@ -772,28 +821,48 @@ function render() {
 }
 
 // ============================================================
-// ACTIONS
+// ACTIONS — usan transacciones para evitar race conditions
 // ============================================================
 function selectItem(id) {
   if (!myName) { showToast('✏️ Escribe tu nombre primero'); return; }
+  if (!isConnected) { showToast('⚠️ Sin conexión, intenta de nuevo'); return; }
   const item = WISHLIST.find(i => i.id === id);
   if (!item) return;
-  const selectors = state[id] || [];
-  if (selectors.includes(myName)) { showToast('Ya seleccionaste este artículo'); return; }
-  if (selectors.length >= item.qty) { showToast('Cupo completo, alguien se adelantó 😅'); return; }
-  state[id] = [...selectors, myName];
-  saveState(state);
-  render();
-  showToast(`🎁 ¡Genial! Reservaste "${item.name}"`);
+
+  const itemRef = wishlistRef.child(id);
+  itemRef.transaction(current => {
+    const arr = Array.isArray(current) ? current : [];
+    if (arr.includes(myName)) return arr;           // ya estaba
+    if (arr.length >= item.qty) return;             // abort: cupo lleno
+    return [...arr, myName];
+  }, (err, committed, snapshot) => {
+    if (err) {
+      showToast('⚠️ Error al guardar, intenta de nuevo');
+      return;
+    }
+    if (!committed) {
+      showToast('Cupo completo, alguien se adelantó 😅');
+      return;
+    }
+    const finalArr = snapshot.val() || [];
+    if (finalArr.includes(myName) && finalArr.length <= item.qty) {
+      showToast(`🎁 ¡Genial! Reservaste "${item.name}"`);
+    }
+  });
 }
 
 function deselectItem(id) {
   if (!myName) return;
-  state[id] = (state[id] || []).filter(n => n !== myName);
-  saveState(state);
-  render();
-  const item = WISHLIST.find(i => i.id === id);
-  showToast(`Quitaste tu selección de "${item ? item.name : id}"`);
+  const itemRef = wishlistRef.child(id);
+  itemRef.transaction(current => {
+    const arr = Array.isArray(current) ? current : [];
+    const filtered = arr.filter(n => n !== myName);
+    return filtered.length ? filtered : null;       // null = borra el nodo
+  }, (err) => {
+    if (err) { showToast('⚠️ Error al quitar, intenta de nuevo'); return; }
+    const item = WISHLIST.find(i => i.id === id);
+    showToast(`Quitaste tu selección de "${item ? item.name : id}"`);
+  });
 }
 
 // ============================================================
@@ -847,8 +916,10 @@ function escHtml(str) {
   return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-// Init
+// Primer render con estado vacío mientras llega la data de Firebase.
+// Después el listener wishlistRef.on('value', ...) se encarga.
 render();
+updateConnectionBadge();
 </script>
 </body>
 </html>
