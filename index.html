@@ -535,7 +535,7 @@
   <header class="header">
     <p class="header-eyebrow">Lista de regalos</p>
     <h1><em>Amalia's</em> Wishlist</h1>
-    <p class="header-sub">Elige un regalo para la bebé · Cada artículo tiene cupo limitado</p>
+    <p class="header-sub">Elige un regalo para la bebé · Cada artículo lo regala una sola persona</p>
     <div class="divider">
       <span class="divider-line"></span>
       <span class="divider-icon">🌸</span>
@@ -613,49 +613,267 @@ const connectedRef = db.ref('.info/connected');
 // ============================================================
 const WISHLIST = [
   {
-    id: "panales",
-    name: "Pacas de pañales",
-    qty: 3,
-    links: [
-      { label: "Amazon", url: "https://www.amazon.com.co" },
-      { label: "Jumbo", url: "https://www.tiendasjumbo.co" },
-      { label: "Éxito", url: "https://www.exito.com" }
-    ]
-  },
-  {
-    id: "toallas_humedas",
-    name: "Toallas húmedas",
-    qty: 2,
-    links: [
-      { label: "Amazon", url: "https://www.amazon.com.co" },
-      { label: "Éxito", url: "https://www.exito.com" }
-    ]
-  },
-  {
-    id: "mameluco",
-    name: "Mameluco newborn (0-3m)",
-    qty: 5,
-    links: [
-      { label: "Zara Kids", url: "https://www.zara.com/co" }
-    ]
-  },
-  {
-    id: "cuna_portatil",
-    name: "Cuna portátil",
+    id: "monitor",
+    name: "Monitor",
     qty: 1,
     links: [
-      { label: "Amazon", url: "https://www.amazon.com.co" },
-      { label: "Bebé Moda", url: "https://www.bebemoda.com.co" }
+      { label: "Amazon", url: "https://a.co/d/06A0twqS" }
     ]
   },
   {
-    id: "cobija",
-    name: "Cobija swaddle",
-    qty: 4,
+    id: "car_seat",
+    name: "Car seat",
+    qty: 1,
     links: [
-      { label: "Amazon", url: "https://www.amazon.com.co" },
-      { label: "Éxito", url: "https://www.exito.com" },
-      { label: "Falabella", url: "https://www.falabella.com.co" }
+      { label: "Carestino", url: "https://www.carestino.com.co/producto/silla-para-carro-hamburgo-i-size-40-150cm-isofix-negro/" }
+    ]
+  },
+  {
+    id: "espejo_carro",
+    name: "Espejo carro",
+    qty: 1,
+    links: [
+      { label: "Amazon", url: "https://a.co/d/00okT7os" }
+    ]
+  },
+  {
+    id: "comedor",
+    name: "Silla comedor",
+    qty: 1,
+    links: [
+      { label: "Carestino", url: "https://www.carestino.com.co/producto/silla-comedor-neo-gris-claro/" }
+    ]
+  },
+  {
+    id: "esterilizador",
+    name: "Esterilizador",
+    qty: 1,
+    links: [
+      { label: "Amazon", url: "https://a.co/d/00zf91HV" },
+      { label: "MercadoLibre", url: "https://www.mercadolibre.com.co/esterilizador-y-secador-de-biberones-momcozy-110v/p/MCO2062917994" }
+    ]
+  },
+  {
+    id: "nevera_enfriadora",
+    name: "Nevera enfriadora",
+    qty: 1,
+    links: [
+      { label: "Amazon", url: "https://a.co/d/02gVR2Qe" },
+      { label: "MercadoLibre", url: "https://www.mercadolibre.com.co/bolsa-termica-para-biberon-momcozy-bolsa-enfriadora-de-leche/p/MCO2065461586" }
+    ]
+  },
+  {
+    id: "extractor_leche",
+    name: "Extractor de leche",
+    qty: 1,
+    links: [
+      { label: "Amazon", url: "https://a.co/d/0dPI4utt" }
+    ]
+  },
+  {
+    id: "cepillo_teteros",
+    name: "Cepillo teteros",
+    qty: 1,
+    links: [
+      { label: "Amazon", url: "https://a.co/d/06wE9QjE" },
+      { label: "MercadoLibre", url: "https://www.mercadolibre.com.co/momcozy-juego-de-cepillos-para-limpiar-biberones-7-en-1-color-verde-claro/p/MCO40348503" }
+    ]
+  },
+  {
+    id: "tetero_recien_nacidos",
+    name: "Tetero recién nacidos",
+    qty: 1,
+    links: [
+      { label: "Nanobebé", url: "https://nanobebe.com.co/producto/biberon-para-leche-materna-gen2-rosa-x-1-150ml/" }
+    ]
+  },
+  {
+    id: "pods_lactancia",
+    name: "Pods lactancia",
+    qty: 1,
+    links: [
+      { label: "Amazon", url: "https://a.co/d/04qI8m9m" }
+    ]
+  },
+  {
+    id: "banera",
+    name: "Bañera",
+    qty: 1,
+    links: [
+      { label: "Carestino", url: "https://www.carestino.com.co/producto/baniera-plegable-con-soporte-amalfi-50l-gris/" }
+    ]
+  },
+  {
+    id: "corta_unas",
+    name: "Corta uñas",
+    qty: 1,
+    links: [
+      { label: "Amazon", url: "https://a.co/d/0cFrs5iU" }
+    ]
+  },
+  {
+    id: "toalla_bano",
+    name: "Toalla baño",
+    qty: 1,
+    links: [
+      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/717275-010595" }
+    ]
+  },
+  {
+    id: "aspirador_nasal",
+    name: "Aspirador nasal",
+    qty: 1,
+    links: [
+      { label: "Amazon", url: "https://a.co/d/0c68ll3R" }
+    ]
+  },
+  {
+    id: "envoltura_bebe",
+    name: "Envoltura bebé",
+    qty: 1,
+    links: [
+      { label: "Orejas de Conejo", url: "https://orejasdeconejo.com/products/enterizo-tejido-trenzado-blanco-1" }
+    ]
+  },
+  // ----- Ropa 0-3 meses · pijamas y básicos -----
+  {
+    id: "ropa_0_3_basicos_1",
+    name: "0–3 meses · pijamas y básicos · opción 1",
+    qty: 1,
+    links: [
+      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/748518-039700" }
+    ]
+  },
+  {
+    id: "ropa_0_3_basicos_2",
+    name: "0–3 meses · pijamas y básicos · opción 2",
+    qty: 1,
+    links: [
+      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/744260-046593" }
+    ]
+  },
+  {
+    id: "ropa_0_3_basicos_3",
+    name: "0–3 meses · pijamas y básicos · opción 3",
+    qty: 1,
+    links: [
+      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/748311-004000" }
+    ]
+  },
+
+  // ----- Ropa 0-3 meses · otros -----
+  {
+    id: "ropa_0_3_otros_1",
+    name: "0–3 meses · otros · opción 1",
+    qty: 1,
+    links: [
+      { label: "Falabella", url: "https://www.falabella.com.co/falabella-co/product/151984556/conjunto-bebe-nina-lila/151984559" }
+    ]
+  },
+  {
+    id: "ropa_0_3_otros_2",
+    name: "0–3 meses · otros · opción 2",
+    qty: 1,
+    links: [
+      { label: "Amazon", url: "https://a.co/d/0767d2L0" }
+    ]
+  },
+
+  // ----- Ropa 3-6 meses · pijamas y básicos -----
+  {
+    id: "ropa_3_6_basicos_1",
+    name: "3–6 meses · pijamas y básicos · opción 1",
+    qty: 1,
+    links: [
+      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/748518-040769" }
+    ]
+  },
+  {
+    id: "ropa_3_6_basicos_2",
+    name: "3–6 meses · pijamas y básicos · opción 2",
+    qty: 1,
+    links: [
+      { label: "Amazon", url: "https://a.co/d/0imxZFfr" }
+    ]
+  },
+
+  // ----- Ropa 3-6 meses · otros -----
+  {
+    id: "ropa_3_6_otros_1",
+    name: "3–6 meses · otros · opción 1",
+    qty: 1,
+    links: [
+      { label: "Offcorss", url: "https://www.offcorss.com/vestido-con-panty-para-bebe-nina-manga-larga-32018151/p?skuId=1097591" }
+    ]
+  },
+  {
+    id: "ropa_3_6_otros_2",
+    name: "3–6 meses · otros · opción 2",
+    qty: 1,
+    links: [
+      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/749098-042037" }
+    ]
+  },
+
+  // ----- Ropa 6-9 meses · pijamas y básicos -----
+  {
+    id: "ropa_6_9_basicos_1",
+    name: "6–9 meses · pijamas y básicos · opción 1",
+    qty: 1,
+    links: [
+      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/749099-000908" }
+    ]
+  },
+  {
+    id: "ropa_6_9_basicos_2",
+    name: "6–9 meses · pijamas y básicos · opción 2",
+    qty: 1,
+    links: [
+      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/748490-009806" }
+    ]
+  },
+
+  // ----- Ropa 6-9 meses · otros -----
+  {
+    id: "ropa_6_9_otros_1",
+    name: "6–9 meses · otros · opción 1",
+    qty: 1,
+    links: [
+      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/751334-039671" }
+    ]
+  },
+  {
+    id: "ropa_6_9_otros_2",
+    name: "6–9 meses · otros · opción 2",
+    qty: 1,
+    links: [
+      { label: "Amazon", url: "https://a.co/d/0a0ClUw1" }
+    ]
+  },
+  {
+    id: "ropa_6_9_otros_3",
+    name: "6–9 meses · otros · opción 3",
+    qty: 1,
+    links: [
+      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/750849-040181" }
+    ]
+  },
+  {
+    id: "ropa_6_9_otros_4",
+    name: "6–9 meses · otros · opción 4",
+    qty: 1,
+    links: [
+      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/747239-000908" }
+    ]
+  },
+
+  // ----- Ropa 9-12 meses -----
+  {
+    id: "ropa_9_12",
+    name: "9–12 meses",
+    qty: 1,
+    links: [
+      { label: "Amazon", url: "https://a.co/d/09ztutQN" }
     ]
   }
 ];
@@ -765,7 +983,7 @@ function render() {
     if (iSelectedIt) {
       actionHTML = `<button class="select-btn deselect" data-id="${item.id}">× Quitar mi selección</button>`;
     } else if (isFull) {
-      actionHTML = `<span class="locked-label">🔒 Cupo completo (${item.qty} personas)</span>`;
+      actionHTML = `<span class="locked-label">🔒 Cupo completo (${item.qty} persona${item.qty !== 1 ? 's' : ''})</span>`;
     } else if (!myName) {
       actionHTML = `<span class="no-name-msg">Escribe tu nombre arriba para seleccionar</span>`;
     } else {
