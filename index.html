@@ -112,6 +112,68 @@
     font-size: 16px;
   }
 
+  /* Address banner */
+  .address-banner {
+    background: linear-gradient(135deg, var(--blush) 0%, var(--warm-white) 100%);
+    border: 1.5px solid var(--blush-deep);
+    border-radius: 16px;
+    padding: 18px 22px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .address-icon {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: white;
+  }
+  .address-content {
+    flex: 1;
+    min-width: 0;
+  }
+  .address-label {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .address-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    color: var(--text-dark);
+    line-height: 1.4;
+    word-break: break-word;
+  }
+  .copy-address-btn {
+    flex-shrink: 0;
+    background: transparent;
+    border: 1px solid var(--blush-deep);
+    color: var(--accent);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background 0.15s, color 0.15s;
+    font-family: 'DM Sans', sans-serif;
+    white-space: nowrap;
+  }
+  .copy-address-btn:hover {
+    background: var(--accent);
+    color: white;
+  }
+
   /* Name input banner */
   .name-banner {
     background: var(--warm-white);
@@ -543,6 +605,16 @@
     </div>
   </header>
 
+  <!-- Address banner -->
+  <div class="address-banner">
+    <div class="address-icon">📍</div>
+    <div class="address-content">
+      <div class="address-label">Dirección de envío</div>
+      <div class="address-text" id="addressText">Calle 8 este #1A-72 · Huertas Oriental Etapa · Torre 3 Apto 402</div>
+    </div>
+    <button class="copy-address-btn" id="copyAddressBtn" title="Copiar dirección">Copiar</button>
+  </div>
+
   <!-- Name input -->
   <div class="name-banner" id="nameBanner">
     <span class="name-banner-label">Tu nombre:</span>
@@ -613,69 +685,90 @@ const connectedRef = db.ref('.info/connected');
 // ============================================================
 const WISHLIST = [
   {
-    id: "monitor",
-    name: "Monitor",
+    id: "monitor_1",
+    name: "Monitor Momcozy · opción 1",
     qty: 1,
     links: [
       { label: "Amazon", url: "https://a.co/d/06A0twqS" }
     ]
   },
   {
+    id: "monitor_2",
+    name: "Monitor Momcozy · opción 2",
+    qty: 1,
+    links: [
+      { label: "MercadoLibre", url: "https://www.mercadolibre.com.co/momcozy-monitor-de-bebe-de-video-monitor-de-bebe-hd-p-de/up/MCOU3687421433" }
+    ]
+  },
+  {
+    id: "monitor_3",
+    name: "Monitor Momcozy · opción 3",
+    qty: 1,
+    links: [
+      { label: "Amazon US", url: "https://www.amazon.com/dp/B0DQXPWHSK" }
+    ]
+  },
+  {
     id: "car_seat",
-    name: "Car seat",
+    name: "Car seat Carestino",
     qty: 1,
     links: [
       { label: "Carestino", url: "https://www.carestino.com.co/producto/silla-para-carro-hamburgo-i-size-40-150cm-isofix-negro/" }
     ]
   },
   {
-    id: "espejo_carro",
-    name: "Espejo carro",
+    id: "gimnasio_bebe",
+    name: "Gimnasio Bebé",
     qty: 1,
     links: [
-      { label: "Amazon", url: "https://a.co/d/00okT7os" }
+      { label: "MercadoLibre", url: "https://www.mercadolibre.com.co/gimnasio-bebe-little-met-tapete-musical-con-piano-y-figuras-sensoriales/p/MCO42795701" }
     ]
   },
   {
     id: "comedor",
-    name: "Silla comedor",
+    name: "Comedor Carestino",
     qty: 1,
     links: [
       { label: "Carestino", url: "https://www.carestino.com.co/producto/silla-comedor-neo-gris-claro/" }
     ]
   },
   {
-    id: "esterilizador",
-    name: "Esterilizador",
+    id: "esterilizador_1",
+    name: "Esterilizador Mom Cozy · opción 1",
     qty: 1,
     links: [
-      { label: "Amazon", url: "https://a.co/d/00zf91HV" },
+      { label: "Amazon", url: "https://a.co/d/00zf91HV" }
+    ]
+  },
+  {
+    id: "esterilizador_2",
+    name: "Esterilizador Mom Cozy · opción 2",
+    qty: 1,
+    links: [
       { label: "MercadoLibre", url: "https://www.mercadolibre.com.co/esterilizador-y-secador-de-biberones-momcozy-110v/p/MCO2062917994" }
     ]
   },
   {
-    id: "nevera_enfriadora",
-    name: "Nevera enfriadora",
-    qty: 1,
-    links: [
-      { label: "Amazon", url: "https://a.co/d/02gVR2Qe" },
-      { label: "MercadoLibre", url: "https://www.mercadolibre.com.co/bolsa-termica-para-biberon-momcozy-bolsa-enfriadora-de-leche/p/MCO2065461586" }
-    ]
-  },
-  {
     id: "extractor_leche",
-    name: "Extractor de leche",
+    name: "Extractor de leche NCVI",
     qty: 1,
     links: [
       { label: "Amazon", url: "https://a.co/d/0dPI4utt" }
     ]
   },
   {
-    id: "cepillo_teteros",
-    name: "Cepillo teteros",
+    id: "cepillo_teteros_1",
+    name: "Cepillo teteros MomCozy · opción 1",
     qty: 1,
     links: [
-      { label: "Amazon", url: "https://a.co/d/06wE9QjE" },
+      { label: "Amazon", url: "https://a.co/d/06wE9QjE" }
+    ]
+  },
+  {
+    id: "cepillo_teteros_2",
+    name: "Cepillo teteros MomCozy · opción 2",
+    qty: 1,
+    links: [
       { label: "MercadoLibre", url: "https://www.mercadolibre.com.co/momcozy-juego-de-cepillos-para-limpiar-biberones-7-en-1-color-verde-claro/p/MCO40348503" }
     ]
   },
@@ -697,7 +790,7 @@ const WISHLIST = [
   },
   {
     id: "banera",
-    name: "Bañera",
+    name: "Bañera Carestino",
     qty: 1,
     links: [
       { label: "Carestino", url: "https://www.carestino.com.co/producto/baniera-plegable-con-soporte-amalfi-50l-gris/" }
@@ -705,7 +798,7 @@ const WISHLIST = [
   },
   {
     id: "corta_unas",
-    name: "Corta uñas",
+    name: "Corta uñas MomCozy",
     qty: 1,
     links: [
       { label: "Amazon", url: "https://a.co/d/0cFrs5iU" }
@@ -728,152 +821,301 @@ const WISHLIST = [
     ]
   },
   {
-    id: "envoltura_bebe",
-    name: "Envoltura bebé",
+    id: "primera_pinta",
+    name: "Primera Pinta",
     qty: 1,
     links: [
       { label: "Orejas de Conejo", url: "https://orejasdeconejo.com/products/enterizo-tejido-trenzado-blanco-1" }
     ]
   },
-  // ----- Ropa 0-3 meses · pijamas y básicos -----
+
+  // ============= 0-3 meses =============
   {
-    id: "ropa_0_3_basicos_1",
-    name: "0–3 meses · pijamas y básicos · opción 1",
+    id: "pijama_0_3_a_1",
+    name: "Pijama 0-3 meses · opción A1",
     qty: 1,
     links: [
       { label: "Baby Fresh", url: "https://www.babyfresh.co/products/748518-039700" }
     ]
   },
   {
-    id: "ropa_0_3_basicos_2",
-    name: "0–3 meses · pijamas y básicos · opción 2",
+    id: "pijama_0_3_a_2",
+    name: "Pijama 0-3 meses · opción A2",
     qty: 1,
     links: [
       { label: "Baby Fresh", url: "https://www.babyfresh.co/products/744260-046593" }
     ]
   },
   {
-    id: "ropa_0_3_basicos_3",
-    name: "0–3 meses · pijamas y básicos · opción 3",
+    id: "pijama_0_3_a_3",
+    name: "Pijama 0-3 meses · opción A3",
     qty: 1,
     links: [
       { label: "Baby Fresh", url: "https://www.babyfresh.co/products/748311-004000" }
     ]
   },
-
-  // ----- Ropa 0-3 meses · otros -----
   {
-    id: "ropa_0_3_otros_1",
-    name: "0–3 meses · otros · opción 1",
-    qty: 1,
-    links: [
-      { label: "Falabella", url: "https://www.falabella.com.co/falabella-co/product/151984556/conjunto-bebe-nina-lila/151984559" }
-    ]
-  },
-  {
-    id: "ropa_0_3_otros_2",
-    name: "0–3 meses · otros · opción 2",
-    qty: 1,
-    links: [
-      { label: "Amazon", url: "https://a.co/d/0767d2L0" }
-    ]
-  },
-
-  // ----- Ropa 3-6 meses · pijamas y básicos -----
-  {
-    id: "ropa_3_6_basicos_1",
-    name: "3–6 meses · pijamas y básicos · opción 1",
+    id: "pijama_0_3_b_1",
+    name: "Pijama 0-3 meses · opción B1",
     qty: 1,
     links: [
       { label: "Baby Fresh", url: "https://www.babyfresh.co/products/748518-040769" }
     ]
   },
   {
-    id: "ropa_3_6_basicos_2",
-    name: "3–6 meses · pijamas y básicos · opción 2",
+    id: "pijama_0_3_b_2",
+    name: "Pijama 0-3 meses · opción B2",
     qty: 1,
     links: [
       { label: "Amazon", url: "https://a.co/d/0imxZFfr" }
     ]
   },
-
-  // ----- Ropa 3-6 meses · otros -----
   {
-    id: "ropa_3_6_otros_1",
-    name: "3–6 meses · otros · opción 1",
+    id: "vestido_0_3_1",
+    name: "Vestido 0-3 meses · opción 1",
+    qty: 1,
+    links: [
+      { label: "Falabella", url: "https://www.falabella.com.co/falabella-co/product/151984556/conjunto-bebe-nina-lila/151984559" }
+    ]
+  },
+  {
+    id: "vestido_0_3_2",
+    name: "Vestido 0-3 meses · opción 2",
+    qty: 1,
+    links: [
+      { label: "Amazon", url: "https://a.co/d/0767d2L0" }
+    ]
+  },
+  {
+    id: "pantalones_0_3",
+    name: "Pantalones 0-3 meses",
+    qty: 1,
+    links: [
+      { label: "Offcorss", url: "https://www.offcorss.com/set-x2-leggings-para-bebe-nina-32201831/p" }
+    ]
+  },
+  {
+    id: "set_bodies_0_3",
+    name: "Set bodies 0-3 meses",
+    qty: 1,
+    links: [
+      { label: "Offcorss", url: "https://www.offcorss.com/body-manga-larga-x-2-para-bebe-nina-32201951/p" }
+    ]
+  },
+
+  // ============= 3-6 meses =============
+  {
+    id: "pantalones_3_6",
+    name: "Pantalones 3-6 meses",
+    qty: 1,
+    links: [
+      { label: "Offcorss", url: "https://www.offcorss.com/sudadera-x2-para-bebe-nina-32201941/p?skuId=1120677" }
+    ]
+  },
+  {
+    id: "saco_3_6",
+    name: "Saco 3-6 meses",
+    qty: 1,
+    links: [
+      { label: "Falabella", url: "https://www.falabella.com.co/falabella-co/product/883619392/sueters-r-nac-ptejnb2oa/883619393" }
+    ]
+  },
+  {
+    id: "vestido_3_6_1",
+    name: "Vestido 3-6 meses · opción 1",
     qty: 1,
     links: [
       { label: "Offcorss", url: "https://www.offcorss.com/vestido-con-panty-para-bebe-nina-manga-larga-32018151/p?skuId=1097591" }
     ]
   },
   {
-    id: "ropa_3_6_otros_2",
-    name: "3–6 meses · otros · opción 2",
+    id: "vestido_3_6_2",
+    name: "Vestido 3-6 meses · opción 2",
     qty: 1,
     links: [
       { label: "Baby Fresh", url: "https://www.babyfresh.co/products/749098-042037" }
     ]
   },
-
-  // ----- Ropa 6-9 meses · pijamas y básicos -----
   {
-    id: "ropa_6_9_basicos_1",
-    name: "6–9 meses · pijamas y básicos · opción 1",
+    id: "set_3_6",
+    name: "Set 3-6 meses",
+    qty: 1,
+    links: [
+      { label: "Offcorss", url: "https://www.offcorss.com/conjunto-para-bebe-nina-de-buzo-y-sudadera-rosado-32125931/p?skuId=1108988" }
+    ]
+  },
+  {
+    id: "pijama_3_6_1",
+    name: "Pijama 3-6 meses · opción 1",
+    qty: 1,
+    links: [
+      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/748518-040769?variant=53748137296244" }
+    ]
+  },
+  {
+    id: "pijama_3_6_2",
+    name: "Pijama 3-6 meses · opción 2",
+    qty: 1,
+    links: [
+      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/744260-046593?variant=53698226225524" }
+    ]
+  },
+  {
+    id: "buzo_corazones_3_6",
+    name: "Buzo Corazones 3-6 meses",
+    qty: 1,
+    links: [
+      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/746841-046593?variant=49285105123622" }
+    ]
+  },
+
+  // ============= 6-9 meses =============
+  {
+    id: "saco_6",
+    name: "Saco 6 meses",
+    qty: 1,
+    links: [
+      { label: "Falabella", url: "https://www.falabella.com.co/falabella-co/product/883596217/Saco-para-Bebe-nina-con-Boleros-de-Algodon-Yamp/883596225" }
+    ]
+  },
+  {
+    id: "set_6_9_a_1",
+    name: "Set 6-9 meses · opción A1",
     qty: 1,
     links: [
       { label: "Baby Fresh", url: "https://www.babyfresh.co/products/749099-000908" }
     ]
   },
   {
-    id: "ropa_6_9_basicos_2",
-    name: "6–9 meses · pijamas y básicos · opción 2",
+    id: "set_6_9_a_2",
+    name: "Set 6-9 meses · opción A2",
     qty: 1,
     links: [
       { label: "Baby Fresh", url: "https://www.babyfresh.co/products/748490-009806" }
     ]
   },
-
-  // ----- Ropa 6-9 meses · otros -----
   {
-    id: "ropa_6_9_otros_1",
-    name: "6–9 meses · otros · opción 1",
+    id: "vestido_6_9",
+    name: "Vestido 6-9 meses",
+    qty: 1,
+    links: [
+      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/747239-000908?variant=52088895439220" }
+    ]
+  },
+  {
+    id: "chaqueta_6_9_1",
+    name: "Chaqueta 6-9 meses · opción 1",
     qty: 1,
     links: [
       { label: "Baby Fresh", url: "https://www.babyfresh.co/products/751334-039671" }
     ]
   },
   {
-    id: "ropa_6_9_otros_2",
-    name: "6–9 meses · otros · opción 2",
+    id: "chaqueta_6_9_2",
+    name: "Chaqueta 6-9 meses · opción 2",
     qty: 1,
     links: [
       { label: "Amazon", url: "https://a.co/d/0a0ClUw1" }
     ]
   },
   {
-    id: "ropa_6_9_otros_3",
-    name: "6–9 meses · otros · opción 3",
+    id: "chaqueta_6_9_3",
+    name: "Chaqueta 6-9 meses · opción 3",
     qty: 1,
     links: [
       { label: "Baby Fresh", url: "https://www.babyfresh.co/products/750849-040181" }
     ]
   },
   {
-    id: "ropa_6_9_otros_4",
-    name: "6–9 meses · otros · opción 4",
+    id: "chaqueta_6_9_4",
+    name: "Chaqueta 6-9 meses · opción 4",
     qty: 1,
     links: [
       { label: "Baby Fresh", url: "https://www.babyfresh.co/products/747239-000908" }
     ]
   },
-
-  // ----- Ropa 9-12 meses -----
   {
-    id: "ropa_9_12",
-    name: "9–12 meses",
+    id: "set_6",
+    name: "Set 6 meses",
+    qty: 1,
+    links: [
+      { label: "Falabella", url: "https://www.falabella.com.co/falabella-co/product/883617993/conjunto-nina-pset1mcoa/883617995" }
+    ]
+  },
+  {
+    id: "set_6_9_b",
+    name: "Set 6-9 meses · opción B",
+    qty: 1,
+    links: [
+      { label: "Offcorss", url: "https://www.offcorss.com/conjunto-largo-dos-piezas-para-bebe-unisex-33120791/p?skuId=1122827" }
+    ]
+  },
+  {
+    id: "pijama_6_9_1",
+    name: "Pijama 6-9 meses · opción 1",
+    qty: 1,
+    links: [
+      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/748518-039700?variant=53748137099636" }
+    ]
+  },
+  {
+    id: "pijama_6_9_2",
+    name: "Pijama 6-9 meses · opción 2",
+    qty: 1,
+    links: [
+      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/744260-047992?variant=52088894194036" }
+    ]
+  },
+
+  // ============= 9-12 meses =============
+  {
+    id: "pijama_9_12",
+    name: "Pijama 9-12 meses",
+    qty: 1,
+    links: [
+      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/744260-047992?variant=52088894226804" }
+    ]
+  },
+  {
+    id: "set_9_12",
+    name: "Set 9-12 meses",
     qty: 1,
     links: [
       { label: "Amazon", url: "https://a.co/d/09ztutQN" }
+    ]
+  },
+  {
+    id: "saco_9_12",
+    name: "Saco 9-12 meses",
+    qty: 1,
+    links: [
+      { label: "Falabella", url: "https://www.falabella.com.co/falabella-co/product/883618933/chaqueta-para-bebe-nina-de-flores-manga-larga-de-algodon-yamp/883618935" }
+    ]
+  },
+
+  // ============= Otros =============
+  {
+    id: "cobija_tejida",
+    name: "Cobija tejida",
+    qty: 1,
+    links: [
+      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/748828-000600" }
+    ]
+  },
+  {
+    id: "swaddles",
+    name: "Swaddles Recién nacido",
+    qty: 1,
+    links: [
+      { label: "Amazon US", url: "https://www.amazon.com/Momcozy-Swaddles-Newborns-New-Parent-Friendly-Essentials/dp/B0GR8MKL59" }
+    ]
+  },
+  {
+    id: "set_12",
+    name: "Set 12 meses",
+    qty: 1,
+    links: [
+      { label: "Offcorss", url: "https://www.offcorss.com/conjunto-largo-dos-piezas-para-bebe-unisex-33120761/p" }
     ]
   }
 ];
@@ -1125,6 +1367,37 @@ function showToast(msg) {
   t.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ============================================================
+// COPY ADDRESS BUTTON
+// ============================================================
+document.getElementById('copyAddressBtn').addEventListener('click', () => {
+  const text = document.getElementById('addressText').textContent.trim();
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(
+      () => showToast('📍 Dirección copiada'),
+      () => fallbackCopy(text)
+    );
+  } else {
+    fallbackCopy(text);
+  }
+});
+
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    showToast('📍 Dirección copiada');
+  } catch (e) {
+    showToast('⚠️ No se pudo copiar');
+  }
+  document.body.removeChild(ta);
 }
 
 // ============================================================
