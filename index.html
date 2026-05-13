@@ -610,7 +610,7 @@
     <div class="address-icon">📍</div>
     <div class="address-content">
       <div class="address-label">Dirección de envío</div>
-      <div class="address-text" id="addressText">Calle 8 este #1A-72 · Huertas Oriental Etapa · Torre 3 Apto 402</div>
+      <div class="address-text" id="addressText">Calle 8 este #1A-72 - Huertas Oriental Etapa 1<br>Torre 3 Apto 402<br>Cajicá - Cundinamarca</div>
     </div>
     <button class="copy-address-btn" id="copyAddressBtn" title="Copiar dirección">Copiar</button>
   </div>
@@ -685,26 +685,12 @@ const connectedRef = db.ref('.info/connected');
 // ============================================================
 const WISHLIST = [
   {
-    id: "monitor_1",
-    name: "Monitor Momcozy · opción 1",
+    id: "monitor",
+    name: "Monitor Momcozy",
     qty: 1,
     links: [
-      { label: "Amazon", url: "https://a.co/d/06A0twqS" }
-    ]
-  },
-  {
-    id: "monitor_2",
-    name: "Monitor Momcozy · opción 2",
-    qty: 1,
-    links: [
-      { label: "MercadoLibre", url: "https://www.mercadolibre.com.co/momcozy-monitor-de-bebe-de-video-monitor-de-bebe-hd-p-de/up/MCOU3687421433" }
-    ]
-  },
-  {
-    id: "monitor_3",
-    name: "Monitor Momcozy · opción 3",
-    qty: 1,
-    links: [
+      { label: "Amazon CO", url: "https://a.co/d/06A0twqS" },
+      { label: "MercadoLibre", url: "https://www.mercadolibre.com.co/momcozy-monitor-de-bebe-de-video-monitor-de-bebe-hd-p-de/up/MCOU3687421433" },
       { label: "Amazon US", url: "https://www.amazon.com/dp/B0DQXPWHSK" }
     ]
   },
@@ -733,18 +719,11 @@ const WISHLIST = [
     ]
   },
   {
-    id: "esterilizador_1",
-    name: "Esterilizador Mom Cozy · opción 1",
+    id: "esterilizador",
+    name: "Esterilizador Mom Cozy",
     qty: 1,
     links: [
-      { label: "Amazon", url: "https://a.co/d/00zf91HV" }
-    ]
-  },
-  {
-    id: "esterilizador_2",
-    name: "Esterilizador Mom Cozy · opción 2",
-    qty: 1,
-    links: [
+      { label: "Amazon", url: "https://a.co/d/00zf91HV" },
       { label: "MercadoLibre", url: "https://www.mercadolibre.com.co/esterilizador-y-secador-de-biberones-momcozy-110v/p/MCO2062917994" }
     ]
   },
@@ -757,18 +736,11 @@ const WISHLIST = [
     ]
   },
   {
-    id: "cepillo_teteros_1",
-    name: "Cepillo teteros MomCozy · opción 1",
+    id: "cepillo_teteros",
+    name: "Cepillo teteros MomCozy",
     qty: 1,
     links: [
-      { label: "Amazon", url: "https://a.co/d/06wE9QjE" }
-    ]
-  },
-  {
-    id: "cepillo_teteros_2",
-    name: "Cepillo teteros MomCozy · opción 2",
-    qty: 1,
-    links: [
+      { label: "Amazon", url: "https://a.co/d/06wE9QjE" },
       { label: "MercadoLibre", url: "https://www.mercadolibre.com.co/momcozy-juego-de-cepillos-para-limpiar-biberones-7-en-1-color-verde-claro/p/MCO40348503" }
     ]
   },
@@ -831,58 +803,30 @@ const WISHLIST = [
 
   // ============= 0-3 meses =============
   {
-    id: "pijama_0_3_a_1",
-    name: "Pijama 0-3 meses · opción A1",
+    id: "pijama_0_3_a",
+    name: "Pijama 0-3 meses (A)",
     qty: 1,
     links: [
-      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/748518-039700" }
+      { label: "Baby Fresh 1", url: "https://www.babyfresh.co/products/748518-039700" },
+      { label: "Baby Fresh 2", url: "https://www.babyfresh.co/products/744260-046593" },
+      { label: "Baby Fresh 3", url: "https://www.babyfresh.co/products/748311-004000" }
     ]
   },
   {
-    id: "pijama_0_3_a_2",
-    name: "Pijama 0-3 meses · opción A2",
+    id: "pijama_0_3_b",
+    name: "Pijama 0-3 meses (B)",
     qty: 1,
     links: [
-      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/744260-046593" }
-    ]
-  },
-  {
-    id: "pijama_0_3_a_3",
-    name: "Pijama 0-3 meses · opción A3",
-    qty: 1,
-    links: [
-      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/748311-004000" }
-    ]
-  },
-  {
-    id: "pijama_0_3_b_1",
-    name: "Pijama 0-3 meses · opción B1",
-    qty: 1,
-    links: [
-      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/748518-040769" }
-    ]
-  },
-  {
-    id: "pijama_0_3_b_2",
-    name: "Pijama 0-3 meses · opción B2",
-    qty: 1,
-    links: [
+      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/748518-040769" },
       { label: "Amazon", url: "https://a.co/d/0imxZFfr" }
     ]
   },
   {
-    id: "vestido_0_3_1",
-    name: "Vestido 0-3 meses · opción 1",
+    id: "vestido_0_3",
+    name: "Vestido 0-3 meses",
     qty: 1,
     links: [
-      { label: "Falabella", url: "https://www.falabella.com.co/falabella-co/product/151984556/conjunto-bebe-nina-lila/151984559" }
-    ]
-  },
-  {
-    id: "vestido_0_3_2",
-    name: "Vestido 0-3 meses · opción 2",
-    qty: 1,
-    links: [
+      { label: "Falabella", url: "https://www.falabella.com.co/falabella-co/product/151984556/conjunto-bebe-nina-lila/151984559" },
       { label: "Amazon", url: "https://a.co/d/0767d2L0" }
     ]
   },
@@ -921,18 +865,11 @@ const WISHLIST = [
     ]
   },
   {
-    id: "vestido_3_6_1",
-    name: "Vestido 3-6 meses · opción 1",
+    id: "vestido_3_6",
+    name: "Vestido 3-6 meses",
     qty: 1,
     links: [
-      { label: "Offcorss", url: "https://www.offcorss.com/vestido-con-panty-para-bebe-nina-manga-larga-32018151/p?skuId=1097591" }
-    ]
-  },
-  {
-    id: "vestido_3_6_2",
-    name: "Vestido 3-6 meses · opción 2",
-    qty: 1,
-    links: [
+      { label: "Offcorss", url: "https://www.offcorss.com/vestido-con-panty-para-bebe-nina-manga-larga-32018151/p?skuId=1097591" },
       { label: "Baby Fresh", url: "https://www.babyfresh.co/products/749098-042037" }
     ]
   },
@@ -945,16 +882,16 @@ const WISHLIST = [
     ]
   },
   {
-    id: "pijama_3_6_1",
-    name: "Pijama 3-6 meses · opción 1",
+    id: "pijama_3_6_a",
+    name: "Pijama 3-6 meses (A)",
     qty: 1,
     links: [
       { label: "Baby Fresh", url: "https://www.babyfresh.co/products/748518-040769?variant=53748137296244" }
     ]
   },
   {
-    id: "pijama_3_6_2",
-    name: "Pijama 3-6 meses · opción 2",
+    id: "pijama_3_6_b",
+    name: "Pijama 3-6 meses (B)",
     qty: 1,
     links: [
       { label: "Baby Fresh", url: "https://www.babyfresh.co/products/744260-046593?variant=53698226225524" }
@@ -979,19 +916,12 @@ const WISHLIST = [
     ]
   },
   {
-    id: "set_6_9_a_1",
-    name: "Set 6-9 meses · opción A1",
+    id: "set_6_9_a",
+    name: "Set 6-9 meses (A)",
     qty: 1,
     links: [
-      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/749099-000908" }
-    ]
-  },
-  {
-    id: "set_6_9_a_2",
-    name: "Set 6-9 meses · opción A2",
-    qty: 1,
-    links: [
-      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/748490-009806" }
+      { label: "Baby Fresh 1", url: "https://www.babyfresh.co/products/749099-000908" },
+      { label: "Baby Fresh 2", url: "https://www.babyfresh.co/products/748490-009806" }
     ]
   },
   {
@@ -1003,35 +933,14 @@ const WISHLIST = [
     ]
   },
   {
-    id: "chaqueta_6_9_1",
-    name: "Chaqueta 6-9 meses · opción 1",
+    id: "chaqueta_6_9",
+    name: "Chaqueta 6-9 meses",
     qty: 1,
     links: [
-      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/751334-039671" }
-    ]
-  },
-  {
-    id: "chaqueta_6_9_2",
-    name: "Chaqueta 6-9 meses · opción 2",
-    qty: 1,
-    links: [
-      { label: "Amazon", url: "https://a.co/d/0a0ClUw1" }
-    ]
-  },
-  {
-    id: "chaqueta_6_9_3",
-    name: "Chaqueta 6-9 meses · opción 3",
-    qty: 1,
-    links: [
-      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/750849-040181" }
-    ]
-  },
-  {
-    id: "chaqueta_6_9_4",
-    name: "Chaqueta 6-9 meses · opción 4",
-    qty: 1,
-    links: [
-      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/747239-000908" }
+      { label: "Baby Fresh 1", url: "https://www.babyfresh.co/products/751334-039671" },
+      { label: "Amazon", url: "https://a.co/d/0a0ClUw1" },
+      { label: "Baby Fresh 2", url: "https://www.babyfresh.co/products/750849-040181" },
+      { label: "Baby Fresh 3", url: "https://www.babyfresh.co/products/747239-000908" }
     ]
   },
   {
@@ -1044,23 +953,23 @@ const WISHLIST = [
   },
   {
     id: "set_6_9_b",
-    name: "Set 6-9 meses · opción B",
+    name: "Set 6-9 meses (B)",
     qty: 1,
     links: [
       { label: "Offcorss", url: "https://www.offcorss.com/conjunto-largo-dos-piezas-para-bebe-unisex-33120791/p?skuId=1122827" }
     ]
   },
   {
-    id: "pijama_6_9_1",
-    name: "Pijama 6-9 meses · opción 1",
+    id: "pijama_6_9_a",
+    name: "Pijama 6-9 meses (A)",
     qty: 1,
     links: [
       { label: "Baby Fresh", url: "https://www.babyfresh.co/products/748518-039700?variant=53748137099636" }
     ]
   },
   {
-    id: "pijama_6_9_2",
-    name: "Pijama 6-9 meses · opción 2",
+    id: "pijama_6_9_b",
+    name: "Pijama 6-9 meses (B)",
     qty: 1,
     links: [
       { label: "Baby Fresh", url: "https://www.babyfresh.co/products/744260-047992?variant=52088894194036" }
@@ -1372,15 +1281,15 @@ function showToast(msg) {
 // ============================================================
 // COPY ADDRESS BUTTON
 // ============================================================
+const ADDRESS_PLAIN = "Calle 8 este #1A-72 - Huertas Oriental Etapa 1\nTorre 3 Apto 402\nCajicá - Cundinamarca";
 document.getElementById('copyAddressBtn').addEventListener('click', () => {
-  const text = document.getElementById('addressText').textContent.trim();
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(text).then(
+    navigator.clipboard.writeText(ADDRESS_PLAIN).then(
       () => showToast('📍 Dirección copiada'),
-      () => fallbackCopy(text)
+      () => fallbackCopy(ADDRESS_PLAIN)
     );
   } else {
-    fallbackCopy(text);
+    fallbackCopy(ADDRESS_PLAIN);
   }
 });
 
