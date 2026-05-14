@@ -112,6 +112,44 @@
     font-size: 16px;
   }
 
+  /* Welcome banner */
+  .welcome-banner {
+    background: linear-gradient(135deg, var(--warm-white) 0%, var(--blush) 100%);
+    border: 1.5px solid var(--blush-deep);
+    border-radius: 20px;
+    padding: 26px 28px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .welcome-banner::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(193,122,101,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .welcome-icon {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+  .welcome-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--text-dark);
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+  }
+  .welcome-text strong {
+    color: var(--accent);
+    font-weight: 600;
+    font-style: normal;
+  }
+
   /* Address banner */
   .address-banner {
     background: linear-gradient(135deg, var(--blush) 0%, var(--warm-white) 100%);
@@ -404,6 +442,22 @@
     color: var(--blocked-text);
   }
 
+  /* Shared gift disclaimer pill */
+  .shared-disclaimer {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: linear-gradient(135deg, #FFF4D6 0%, #FFE9B8 100%);
+    color: #8B6914;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 99px;
+    border: 1px solid #E8C870;
+    letter-spacing: 0.02em;
+    margin-top: 6px;
+  }
+
   /* Selectors list */
   .selectors-list {
     display: flex;
@@ -597,13 +651,21 @@
   <header class="header">
     <p class="header-eyebrow">Lista de regalos</p>
     <h1><em>Amalia's</em> Wishlist</h1>
-    <p class="header-sub">Elige un regalo para la bebé · Cada artículo lo regala una sola persona</p>
+    <p class="header-sub">Elige un regalo para la bebé</p>
     <div class="divider">
       <span class="divider-line"></span>
       <span class="divider-icon">🌸</span>
       <span class="divider-line"></span>
     </div>
   </header>
+
+  <!-- Welcome banner -->
+  <div class="welcome-banner">
+    <div class="welcome-icon">💌</div>
+    <p class="welcome-text">
+      <strong>Familia y amigos,</strong> para los que nos han preguntado qué darle a Amalia, hicimos esta lista de deseos para que escojan lo que mejor se ajuste a ustedes. Gracias por todo su amor para Amalia.
+    </p>
+  </div>
 
   <!-- Address banner -->
   <div class="address-banner">
@@ -684,10 +746,12 @@ const connectedRef = db.ref('.info/connected');
 // LISTA DE PRODUCTOS — edita aquí para actualizar la wishlist
 // ============================================================
 const WISHLIST = [
+  // ============= Compartidos (varias personas) =============
   {
     id: "monitor",
     name: "Monitor Momcozy",
-    qty: 1,
+    qty: 10,
+    shared: true,
     links: [
       { label: "Amazon CO", url: "https://a.co/d/06A0twqS" },
       { label: "MercadoLibre", url: "https://www.mercadolibre.com.co/momcozy-monitor-de-bebe-de-video-monitor-de-bebe-hd-p-de/up/MCOU3687421433" },
@@ -697,23 +761,17 @@ const WISHLIST = [
   {
     id: "car_seat",
     name: "Car seat Carestino",
-    qty: 1,
+    qty: 10,
+    shared: true,
     links: [
       { label: "Carestino", url: "https://www.carestino.com.co/producto/silla-para-carro-hamburgo-i-size-40-150cm-isofix-negro/" }
     ]
   },
   {
-    id: "gimnasio_bebe",
-    name: "Gimnasio Bebé",
-    qty: 1,
-    links: [
-      { label: "MercadoLibre", url: "https://www.mercadolibre.com.co/gimnasio-bebe-little-met-tapete-musical-con-piano-y-figuras-sensoriales/p/MCO42795701" }
-    ]
-  },
-  {
     id: "comedor",
     name: "Comedor Carestino",
-    qty: 1,
+    qty: 10,
+    shared: true,
     links: [
       { label: "Carestino", url: "https://www.carestino.com.co/producto/silla-comedor-neo-gris-claro/" }
     ]
@@ -721,7 +779,8 @@ const WISHLIST = [
   {
     id: "esterilizador",
     name: "Esterilizador Mom Cozy",
-    qty: 1,
+    qty: 10,
+    shared: true,
     links: [
       { label: "Amazon", url: "https://a.co/d/00zf91HV" },
       { label: "MercadoLibre", url: "https://www.mercadolibre.com.co/esterilizador-y-secador-de-biberones-momcozy-110v/p/MCO2062917994" }
@@ -730,9 +789,29 @@ const WISHLIST = [
   {
     id: "extractor_leche",
     name: "Extractor de leche NCVI",
-    qty: 1,
+    qty: 10,
+    shared: true,
     links: [
       { label: "Amazon", url: "https://a.co/d/0dPI4utt" }
+    ]
+  },
+  {
+    id: "banera",
+    name: "Bañera Carestino",
+    qty: 10,
+    shared: true,
+    links: [
+      { label: "Carestino", url: "https://www.carestino.com.co/producto/baniera-plegable-con-soporte-amalfi-50l-gris/" }
+    ]
+  },
+
+  // ============= Cuidado y accesorios =============
+  {
+    id: "gimnasio_bebe",
+    name: "Gimnasio Bebé",
+    qty: 1,
+    links: [
+      { label: "Temu", url: "https://www.temu.com/co-en/gym-play-mat-tummy-time-mat--5-detachable-toys-and-a-pillow-larger-sensory-training-mat-an-essential-gift-for-newborns-aged-0--12-months-g-601100016721620.html" }
     ]
   },
   {
@@ -761,14 +840,6 @@ const WISHLIST = [
     ]
   },
   {
-    id: "banera",
-    name: "Bañera Carestino",
-    qty: 1,
-    links: [
-      { label: "Carestino", url: "https://www.carestino.com.co/producto/baniera-plegable-con-soporte-amalfi-50l-gris/" }
-    ]
-  },
-  {
     id: "corta_unas",
     name: "Corta uñas MomCozy",
     qty: 1,
@@ -790,6 +861,94 @@ const WISHLIST = [
     qty: 1,
     links: [
       { label: "Amazon", url: "https://a.co/d/0c68ll3R" }
+    ]
+  },
+  {
+    id: "muselinas",
+    name: "Muselinas",
+    qty: 1,
+    links: [
+      { label: "Temu", url: "https://www.temu.com/co-en/3-pack-muslin-swaddle-blankets-for-unisex-newborn-receiving-blanket-large-40x38-inches-soft-breathable-muslin-baby--for-boys-girls-g-601099889528847.html" }
+    ]
+  },
+  {
+    id: "muselinas_pequenas",
+    name: "Muselinas pequeñas",
+    qty: 1,
+    links: [
+      { label: "Temu", url: "https://www.temu.com/co-en/5pcs-soft-crepe-muslin-nursing-towels-suitable-for-feeding-burp-cloths-drool-sweat-absorbent-ultra-soft-four-layer-wipes-for-spitting-up-milk-stain-removal-hand-washable-multicolor-g-605941248435491.html" }
+    ]
+  },
+  {
+    id: "muselinas_cambiador",
+    name: "Muselinas para cambiador",
+    qty: 1,
+    links: [
+      { label: "Temu", url: "https://www.temu.com/co-en/2-pack-muslin-fitted-bassinet-sheets-for-baby--soft-breathable-baby-bassinet-sheets-fit-for-baby-bassinets-cradle-g-601099700385206.html" }
+    ]
+  },
+  {
+    id: "set_cobijas",
+    name: "Set Cobijas",
+    qty: 1,
+    links: [
+      { label: "Temu", url: "https://www.temu.com/co-en/2pcs-baby-seasonal-blanket-with-cute-colorful-handmade-pom-poms-knitted-blanket-90-70cm-made-of-acrylic-material-multi-piece-set---baby-gifts-versatile-blanket-g-601100987700498.html" }
+    ]
+  },
+  {
+    id: "cobija_tejida",
+    name: "Cobija tejida",
+    qty: 1,
+    links: [
+      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/748828-000600" }
+    ]
+  },
+  {
+    id: "cambiador",
+    name: "Cambiador",
+    qty: 1,
+    links: [
+      { label: "Temu", url: "https://www.temu.com/co-en/2026s-latest--version-non-slip-changing-table-changing-pad-soft-and-breathable-tabletop-changing-station-for-children-suitable-for-bedrooms-nurseries-perfect-as-a-gift-for-newborns-or-birthdays-g-605894137982999.html" }
+    ]
+  },
+  {
+    id: "swaddles",
+    name: "Swaddles Recién nacido",
+    qty: 1,
+    links: [
+      { label: "Amazon US", url: "https://www.amazon.com/Momcozy-Swaddles-Newborns-New-Parent-Friendly-Essentials/dp/B0GR8MKL59" }
+    ]
+  },
+  {
+    id: "luz_blanca",
+    name: "Luz blanca",
+    qty: 1,
+    links: [
+      { label: "Temu", url: "https://www.temu.com/co-en/a-colorful-sleep-aid-night-light-led-white-noise-lamp-soothing-white-noise--sleep-with-the--to-switch-between--and-10-calming-white-noise-sounds-suitable-for-light-sleepers-helping-to-and-relaxation-g-601105623990973.html" }
+    ]
+  },
+  {
+    id: "manta_lactancia",
+    name: "Manta lactancia",
+    qty: 1,
+    links: [
+      { label: "Temu", url: "https://www.temu.com/co-en/a-printed-pure-nursing-cover-breathable-100-breastfeeding-cover-nursing-apron-stroller-cover-blanket-car-seat-canopy-anti-light--mother-breastfeeding-towel-providing-comfortable-protection-for-new-mothers-g-601099672449452.html" }
+    ]
+  },
+  {
+    id: "organizadores",
+    name: "Organizadores",
+    qty: 1,
+    links: [
+      { label: "Temu", url: "https://www.temu.com/co-en/decorative-storage-baskets-bulk-storage-boxes-clothing-storage-containers-with-handles-books-miscellaneous-storage-boxes-bedroom-and-living-room-office-and--additions--and-storage-supplies-home-decoration-g-601099725825358.html" }
+    ]
+  },
+  {
+    id: "baberos",
+    name: "Baberos",
+    qty: 3,
+    links: [
+      { label: "Temu", url: "https://www.temu.com/co-en/baby-soft-bib-simple-plain-color-blank-pattern-adjustable-size-silicone-bib-for-1-year-old-christmas-halloween-thanksgiving-day-gift-easter-gift-g-601099516057259.html" }
     ]
   },
   {
@@ -1001,24 +1160,6 @@ const WISHLIST = [
       { label: "Falabella", url: "https://www.falabella.com.co/falabella-co/product/883618933/chaqueta-para-bebe-nina-de-flores-manga-larga-de-algodon-yamp/883618935" }
     ]
   },
-
-  // ============= Otros =============
-  {
-    id: "cobija_tejida",
-    name: "Cobija tejida",
-    qty: 1,
-    links: [
-      { label: "Baby Fresh", url: "https://www.babyfresh.co/products/748828-000600" }
-    ]
-  },
-  {
-    id: "swaddles",
-    name: "Swaddles Recién nacido",
-    qty: 1,
-    links: [
-      { label: "Amazon US", url: "https://www.amazon.com/Momcozy-Swaddles-Newborns-New-Parent-Friendly-Essentials/dp/B0GR8MKL59" }
-    ]
-  },
   {
     id: "set_12",
     name: "Set 12 meses",
@@ -1102,12 +1243,19 @@ function render() {
     if (isFull) { badgeClass = 'full'; badgeText = '¡Completo!'; }
     else if (filled > 0) { badgeClass = 'partial'; badgeText = `${filled} / ${item.qty} tomados`; }
 
-    // --- Slots mini-dots ---
+    // --- Slots mini-dots (solo para qty pequeño) ---
     let dots = '';
-    for (let i = 0; i < item.qty; i++) {
-      const taken = i < filled;
-      dots += `<span style="display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:3px;background:${taken ? 'var(--accent)' : 'var(--blush-mid)'};vertical-align:middle;"></span>`;
+    if (item.qty <= 4) {
+      for (let i = 0; i < item.qty; i++) {
+        const taken = i < filled;
+        dots += `<span style="display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:3px;background:${taken ? 'var(--accent)' : 'var(--blush-mid)'};vertical-align:middle;"></span>`;
+      }
     }
+
+    // --- Disclaimer "regalo compartido" ---
+    const disclaimerHTML = item.shared
+      ? `<div><span class="shared-disclaimer">👥 Este regalo lo pueden dar varias personas</span></div>`
+      : '';
 
     // --- Selector chips ---
     let chipsHTML = '';
@@ -1148,11 +1296,12 @@ function render() {
           <div class="item-qty-row">
             <span class="qty-label">Cantidad:</span>
             <span class="qty-pill">✦ ${item.qty}</span>
-            <span>${dots}</span>
+            ${dots ? `<span>${dots}</span>` : ''}
             <span class="qty-fill-pill ${isFull ? 'full' : 'available'}">
               ${isFull ? '✓ Completo' : `${item.qty - filled} disponible${item.qty - filled !== 1 ? 's' : ''}`}
             </span>
           </div>
+          ${disclaimerHTML}
         </div>
         <span class="status-badge ${badgeClass}">${badgeText}</span>
       </div>
